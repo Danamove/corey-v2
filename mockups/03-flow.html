@@ -1,0 +1,329 @@
+<style>
+  .section-wrap {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Heebo', system-ui, sans-serif;
+    max-width: 900px;
+    margin: 0 auto 32px;
+  }
+  .section-wrap h2 {
+    color: #f8fafc;
+    font-size: 28px;
+    margin: 0 0 8px;
+  }
+  .section-wrap .lead {
+    color: #94a3b8;
+    margin-bottom: 28px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .step {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 18px 22px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    color: #cbd5e1;
+  }
+  .step-num {
+    flex-shrink: 0;
+    background: #38bdf8;
+    color: #0c4a6e;
+    font-weight: 700;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .step-body h4 {
+    color: #f1f5f9;
+    margin: 0 0 4px;
+    font-size: 16px;
+  }
+  .step-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #94a3b8;
+  }
+  .step-body .icon-row {
+    display: inline-flex;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #64748b;
+  }
+  .step-body .icon-row span {
+    background: #1e293b;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  .market-callout {
+    background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(168,85,247,0.08));
+    border: 1px solid rgba(56,189,248,0.25);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin-top: 24px;
+    color: #e2e8f0;
+  }
+  .market-callout h4 {
+    color: #38bdf8;
+    margin: 0 0 8px;
+    font-size: 16px;
+  }
+  .market-callout p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .tier {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 26px 22px;
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+  }
+  .tier.featured {
+    border-color: #38bdf8;
+    background: linear-gradient(180deg, #0f172a, #0b1f37);
+    position: relative;
+  }
+  .tier.featured::before {
+    content: "המומלץ";
+    position: absolute;
+    top: -10px;
+    right: 22px;
+    background: #38bdf8;
+    color: #0c4a6e;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .tier-name {
+    font-size: 13px;
+    color: #94a3b8;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tier-price {
+    color: #f8fafc;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .tier-price small {
+    font-size: 13px;
+    font-weight: 400;
+    color: #94a3b8;
+  }
+  .tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    flex-grow: 1;
+  }
+  .tier-features li {
+    color: #cbd5e1;
+    padding-right: 22px;
+    position: relative;
+  }
+  .tier-features li::before {
+    content: "✓";
+    color: #38bdf8;
+    position: absolute;
+    right: 0;
+  }
+  .tier-features li.dim {
+    color: #475569;
+  }
+  .tier-features li.dim::before {
+    content: "•";
+    color: #475569;
+  }
+  .tier-cta {
+    background: #1e293b;
+    color: #f1f5f9;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .tier.featured .tier-cta {
+    background: #38bdf8;
+    color: #0c4a6e;
+  }
+  .trial-strip {
+    background: #134e4a;
+    border: 1px solid #14b8a6;
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin-top: 16px;
+    color: #ccfbf1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .trial-strip strong { color: #f0fdfa; }
+  .roi-box {
+    background: #0f172a;
+    border: 1px dashed #334155;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 18px;
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .roi-box strong { color: #38bdf8; }
+  .stack-strip {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin-top: 16px;
+    color: #94a3b8;
+    font-size: 13px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .stack-strip span {
+    color: #f1f5f9;
+    background: #1e293b;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+  }
+</style>
+
+<div class="section-wrap">
+  <h2>איך זה עובד</h2>
+
+  <div class="flow-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>טופס בעמוד אחד</h4>
+        <p>מייל + בריף מפורט: טייטל, ניסיון, מיקום, סטאק, חברות לא רלוונטיות, תדירות, מסלול. autosave לאורך הדרך, אפשר לחזור.</p>
+        <div class="icon-row"><span>🌐 Web Form</span></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>מייל אישור עם סיכום הבריף</h4>
+        <p>"קלטנו. הנה מה ביקשת. תוך 24 שעות יגיע הקובץ הראשון. שינויים? עני לאותו thread."</p>
+        <div class="icon-row"><span>📧 Email</span></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>כל יום (או שבוע): Excel למייל</h4>
+        <p>קובץ עם פרופילים מאומתים, עם לינקים.</p>
+        <div class="icon-row"><span>📧 Email</span><span>📊 Excel</span></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>שינויים? Reply לאותו thread</h4>
+        <p>"תוסיפו exclusion על Wix" / "תורידו את התדירות" / "תעצרו לזמן מה". תגובה תוך 24 שעות.</p>
+        <div class="icon-row"><span>📧 Email</span></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>בסוף השבוע: לינק להמשך</h4>
+        <p>מייל אוטומטי: "ממשיכים? בחר מסלול." לחיצה → [ספק תשלום] → המנוי פעיל. Pro? מחברים את ה-Gmail/Outlook.</p>
+        <div class="icon-row"><span>📧 Email</span><span>💳 [ספק תשלום]</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="market-callout">
+    <h4>⚡ Market Signal Layer · היתרון הסמוי</h4>
+    <p>המנוע סורק באופן שוטף פיטורים, סגירות, שינויים פנימיים, ראונדים בעייתיים. הסוכנים יודעים <strong>איפה</strong> לחפש בכל רגע נתון. אתם מקבלים את היתרון הזה אוטומטית. לא עוד "כולם מחפשים את אותם 50 הסניורים בלינקדאין".</p>
+  </div>
+
+</div>
+
+<div class="section-wrap">
+  <h2>תמחור</h2>
+  <p class="lead">לחודש, פר משרה. אפשר להוסיף משרות, להוריד, או להקפיא בכל זמן.</p>
+
+  <div class="pricing-grid">
+    <div class="tier">
+      <div class="tier-name">Lite</div>
+      <div class="tier-price">₪590<small>/חודש</small></div>
+      <ul class="tier-features">
+        <li>אספקה שבועית</li>
+        <li>Market Signal Layer</li>
+        <li>Excel למייל</li>
+        <li>תמיכה במייל</li>
+        <li class="dim">פניות מהמייל שלך</li>
+      </ul>
+      <div class="tier-cta">התחל ניסיון</div>
+    </div>
+
+    <div class="tier featured">
+      <div class="tier-name">Active</div>
+      <div class="tier-price">₪990<small>/חודש</small></div>
+      <ul class="tier-features">
+        <li>אספקה יומית</li>
+        <li>Market Signal Layer</li>
+        <li>Excel למייל</li>
+        <li>תמיכה במייל</li>
+        <li class="dim">פניות מהמייל שלך</li>
+      </ul>
+      <div class="tier-cta">התחל ניסיון</div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-name">Pro</div>
+      <div class="tier-price">₪1,590<small>/חודש</small></div>
+      <ul class="tier-features">
+        <li>אספקה יומית</li>
+        <li>Market Signal Layer</li>
+        <li>Excel למייל</li>
+        <li>תמיכה במייל</li>
+        <li>פניות מהמייל שלך (OAuth)</li>
+      </ul>
+      <div class="tier-cta">התחל ניסיון</div>
+    </div>
+  </div>
+
+  <div class="trial-strip">
+    <div>🎁 <strong>שבוע ניסיון חינם.</strong> משרה אחת, רמת Active, ללא כרטיס אשראי.</div>
+    <div style="font-size:13px;color:#a7f3d0">בטל בקליק</div>
+  </div>
+
+  <div class="roi-box">
+    <strong>למה זה no-brainer:</strong> ₪990 לחודש = ₪33 ליום. חוסכים 4 עד 6 שעות יומיות של סורסינג. <strong>placement אחד נוסף בחודש = החזר פי 30+.</strong>
+  </div>
+</div>

@@ -1,0 +1,182 @@
+<style>
+  .section-wrap {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Heebo', system-ui, sans-serif;
+    max-width: 900px;
+    margin: 0 auto 32px;
+  }
+  .section-wrap > h2 {
+    color: #f8fafc;
+    font-size: 32px;
+    margin: 0 0 8px;
+  }
+  .section-wrap > .lead {
+    color: #94a3b8;
+    margin-bottom: 28px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .icp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+  .icp-col {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 26px 28px;
+  }
+  .icp-col.fit { border: 1px solid #14b8a6; }
+  .icp-col.no-fit { border: 1px solid #475569; }
+  .icp-col h3 {
+    margin: 0 0 16px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .icp-col.fit h3 { color: #5eead4; }
+  .icp-col.no-fit h3 { color: #94a3b8; }
+  .icp-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+  .icp-col.fit li::before {
+    content: "✓ ";
+    color: #4ade80;
+    margin-left: 6px;
+  }
+  .icp-col.no-fit li::before {
+    content: "✗ ";
+    color: #f87171;
+    margin-left: 6px;
+  }
+  .scope-block {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 26px 28px;
+    margin-bottom: 18px;
+  }
+  .scope-block h3 {
+    color: #f8fafc;
+    margin: 0 0 14px;
+    font-size: 18px;
+  }
+  .scope-block .desc {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+  .role-grid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .role-pill {
+    background: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .seniority {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.65;
+    background: #020617;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border-right: 3px solid #38bdf8;
+  }
+  .seniority strong { color: #f1f5f9; }
+  .custom-path {
+    background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(56,189,248,0.08));
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 12px;
+    padding: 22px 26px;
+    color: #e2e8f0;
+  }
+  .custom-path h4 {
+    color: #c4b5fd;
+    margin: 0 0 8px;
+    font-size: 16px;
+  }
+  .custom-path p {
+    margin: 0 0 12px;
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .custom-cta {
+    display: inline-block;
+    background: #c4b5fd;
+    color: #1e1b4b;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+  }
+</style>
+
+<div class="section-wrap">
+  <h2>למי זה מתאים. ולמי לא.</h2>
+  <p class="lead">המוצר בנוי לסוג ספציפי של עבודת גיוס. אם זה אתה, זה יחסוך לך שעות. אם זה לא, נכוון אותך לפתרון אחר.</p>
+
+  <div class="icp-grid">
+    <div class="icp-col fit">
+      <h3>מתאים לך אם:</h3>
+      <ul>
+        <li>פרילנסר/ית בגיוס טכנולוגי</li>
+        <li>סוכנות בוטיק (2-5 רקרוטרים)</li>
+        <li>מנהל/ת 1-10 משרות פעילות</li>
+        <li>מבזבז יותר מ-2 שעות סורסינג ביום</li>
+        <li>רוצה להתפנות לשיחות, לא ל-Boolean</li>
+      </ul>
+    </div>
+
+    <div class="icp-col no-fit">
+      <h3>לא מתאים לך אם:</h3>
+      <ul>
+        <li>חברה גדולה עם 50+ משרות פתוחות בו זמנית</li>
+        <li>צריך לאייש 30 ג'וניורים בכמות</li>
+        <li>חברה גלובלית, סורסינג ב-15 מדינות</li>
+        <li>מחפש replacement לרקרוטר אצלך, לא משלים</li>
+        <li>רוצה מי שגם יראיין, יסנן, ויצור קשר אישי</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scope-block">
+    <h3>אילו משרות אנחנו תומכים</h3>
+    <p class="desc">המנוע מתאים למשרות עם נפח איתור גבוה, שניתן לזהות במדויק לפי קריטריונים מובנים.</p>
+
+    <div class="role-grid">
+      <span class="role-pill">Backend</span>
+      <span class="role-pill">Frontend</span>
+      <span class="role-pill">Fullstack</span>
+      <span class="role-pill">DevOps</span>
+      <span class="role-pill">Product (PM)</span>
+    </div>
+
+    <div class="seniority">
+      <strong>סניוריות:</strong> Junior to Senior. (Staff, Principal, Architect, VP יבדקו פרטנית.)
+    </div>
+  </div>
+
+  <div class="custom-path">
+    <h4>משרה אחרת? בודקים יחד.</h4>
+    <p>תפקידי ML, Data Science, Security Research, QA, Design, או משרות שדורשות חיפוש מעבר ל-LinkedIn. נבדוק את הספציפיקציה ונחזיר לך תכנית מותאמת. ייתכן שנוכל, ייתכן שלא. בכל מקרה תקבל תשובה ישרה.</p>
+    <span class="custom-cta">שלח דרישה לבדיקה</span>
+  </div>
+</div>

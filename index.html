@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corey · מנוע איתור יומי למשרות טכנולוגיות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #020617;
+    --surface: #0f172a;
+    --surface-2: #1e293b;
+    --surface-deep: #0b1220;
+    --text: #f1f5f9;
+    --text-soft: #cbd5e1;
+    --text-mute: #94a3b8;
+    --text-dim: #64748b;
+    --border: #1e293b;
+    --border-soft: #334155;
+    --amber: #fbbf24;
+    --amber-deep: #422006;
+    --amber-glow: rgba(251, 191, 36, 0.12);
+    --amber-border: rgba(251, 191, 36, 0.3);
+    --teal: #14b8a6;
+    --teal-soft: #5eead4;
+    --teal-bg: #134e4a;
+    --teal-glow: #ccfbf1;
+    --purple: #a855f7;
+    --purple-soft: #c4b5fd;
+    --purple-glow: rgba(168, 85, 247, 0.1);
+    --red-soft: #f87171;
+    --green-soft: #4ade80;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Heebo', system-ui, -apple-system, sans-serif;
+    direction: rtl;
+    text-align: right;
+    line-height: 1.5;
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav.top {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav.top .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .brand-mark {
+    background: var(--amber);
+    color: var(--amber-deep);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    font-size: 14px;
+    color: var(--text-mute);
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--amber);
+    color: var(--amber-deep) !important;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+  }
+
+  /* Sections */
+  section { padding: 80px 0; }
+  section.hero { padding-top: 60px; }
+  h1, h2, h3, h4 { color: var(--text); margin: 0; line-height: 1.2; letter-spacing: -0.01em; }
+  p { color: var(--text-soft); margin: 0; }
+
+  /* Hero */
+  .hero-card {
+    background: linear-gradient(135deg, var(--surface), var(--surface-2));
+    border-radius: 16px;
+    padding: 60px 52px;
+    border: 1px solid var(--border);
+  }
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    background: var(--amber-glow);
+    color: var(--amber);
+    border: 1px solid var(--amber-border);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .hero-card h1 {
+    font-size: 44px;
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .hero-card .sub {
+    font-size: 18px;
+    color: var(--text-soft);
+    margin-bottom: 32px;
+    max-width: 620px;
+    line-height: 1.65;
+  }
+  .cta-row { display: inline-flex; gap: 12px; align-items: center; margin-bottom: 36px; }
+  .btn-primary {
+    background: var(--amber);
+    color: var(--amber-deep);
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    border: 0;
+    cursor: pointer;
+  }
+  .btn-ghost {
+    color: var(--text-soft);
+    padding: 14px 18px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .metrics {
+    display: flex;
+    gap: 40px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    flex-wrap: wrap;
+  }
+  .metric { display: flex; flex-direction: column; gap: 4px; }
+  .metric-num { font-size: 22px; font-weight: 700; color: var(--amber); }
+  .metric-label { font-size: 13px; color: var(--text-mute); }
+
+  /* Section heading */
+  .sec-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .sec-lead {
+    color: var(--text-mute);
+    font-size: 15px;
+    margin-bottom: 32px;
+    max-width: 720px;
+    line-height: 1.65;
+  }
+
+  /* Problem */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .compare-col {
+    background: var(--surface-deep);
+    border-radius: 12px;
+    padding: 28px 30px;
+  }
+  .compare-col.before { border: 1px solid var(--border-soft); }
+  .compare-col.after { border: 1px solid var(--teal); }
+  .compare-col h5 {
+    margin: 0 0 16px;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+  }
+  .compare-col.before h5 { color: var(--text-mute); }
+  .compare-col.after h5 { color: var(--teal-soft); }
+  .compare-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-soft);
+    font-size: 15px;
+    line-height: 1.95;
+  }
+  .compare-col.before li::before { content: "✗ "; color: var(--red-soft); margin-left: 6px; }
+  .compare-col.after li::before { content: "✓ "; color: var(--green-soft); margin-left: 6px; }
+
+  /* Flow steps */
+  .flow-steps { display: flex; flex-direction: column; gap: 14px; }
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 26px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    background: var(--amber);
+    color: var(--amber-deep);
+    font-weight: 700;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+  }
+  .step-body h4 { color: var(--text); margin: 0 0 6px; font-size: 17px; font-weight: 600; }
+  .step-body p { font-size: 14px; line-height: 1.65; color: var(--text-mute); }
+  .step-body .icon-row {
+    display: inline-flex;
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .step-body .icon-row span {
+    background: var(--surface-2);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  /* Market Signal */
+  .market-callout {
+    background: linear-gradient(135deg, var(--amber-glow), var(--purple-glow));
+    border: 1px solid var(--amber-border);
+    border-radius: 12px;
+    padding: 26px 30px;
+    margin-top: 28px;
+  }
+  .market-callout h4 { color: var(--amber); margin: 0 0 10px; font-size: 17px; font-weight: 700; }
+  .market-callout p { font-size: 14px; line-height: 1.7; }
+  .stack-strip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 22px;
+    margin-top: 18px;
+    color: var(--text-mute);
+    font-size: 13px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .stack-strip .chip {
+    color: var(--text);
+    background: var(--surface-2);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* Pricing */
+  .price-table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 32px; }
+  .price-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface-deep); border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
+  .price-table th, .price-table td {
+    padding: 14px 18px;
+    text-align: right;
+    color: var(--text-soft);
+    font-size: 15px;
+    border-bottom: 1px solid var(--border);
+  }
+  .price-table th { background: var(--surface); color: var(--text-mute); font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+  .price-table tr:last-child td { border-bottom: none; }
+  .price-cell { color: var(--amber); font-weight: 700; }
+  .examples-box {
+    background: var(--surface-deep);
+    border-radius: 10px;
+    padding: 20px 26px;
+    margin-top: 16px;
+  }
+  .examples-box h5 {
+    color: var(--text-mute);
+    margin: 0 0 12px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .examples-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 2;
+  }
+  .examples-box strong { color: var(--amber); }
+  .trial-strip {
+    background: var(--teal-bg);
+    border: 1px solid var(--teal);
+    border-radius: 12px;
+    padding: 18px 26px;
+    margin-top: 20px;
+    color: var(--teal-glow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .roi-box {
+    background: var(--surface);
+    border: 1px dashed var(--border-soft);
+    border-radius: 10px;
+    padding: 20px 26px;
+    margin-top: 16px;
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .roi-box strong { color: var(--amber); }
+  .levers {
+    margin-top: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 26px;
+  }
+  .levers h4 { color: var(--text); margin: 0 0 14px; font-size: 16px; font-weight: 700; }
+  .levers ul { margin: 0; padding-right: 22px; line-height: 1.85; font-size: 14px; color: var(--text-soft); }
+  .levers strong { color: var(--amber); }
+
+  /* ICP */
+  .icp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 28px; }
+  .icp-col { background: var(--surface); border-radius: 12px; padding: 28px 30px; }
+  .icp-col.fit { border: 1px solid var(--teal); }
+  .icp-col.no-fit { border: 1px solid var(--border-soft); }
+  .icp-col h3 { margin: 0 0 16px; font-size: 18px; font-weight: 700; }
+  .icp-col.fit h3 { color: var(--teal-soft); }
+  .icp-col.no-fit h3 { color: var(--text-mute); }
+  .icp-col ul { list-style: none; padding: 0; margin: 0; color: var(--text-soft); font-size: 15px; line-height: 1.9; }
+  .icp-col.fit li::before { content: "✓ "; color: var(--green-soft); margin-left: 6px; }
+  .icp-col.no-fit li::before { content: "✗ "; color: var(--red-soft); margin-left: 6px; }
+  .scope-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 18px;
+  }
+  .scope-block h3 { color: var(--text); margin: 0 0 14px; font-size: 18px; font-weight: 700; }
+  .scope-block p { color: var(--text-mute); font-size: 14px; margin-bottom: 18px; line-height: 1.65; }
+  .role-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+  .role-pill {
+    background: var(--amber-glow);
+    color: var(--amber);
+    border: 1px solid var(--amber-border);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .seniority {
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.65;
+    background: var(--surface-deep);
+    padding: 14px 18px;
+    border-radius: 10px;
+    border-right: 3px solid var(--amber);
+  }
+  .seniority strong { color: var(--text); }
+  .custom-path {
+    background: linear-gradient(135deg, var(--purple-glow), var(--amber-glow));
+    border: 1px solid var(--purple);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+  .custom-path h4 { color: var(--purple-soft); margin: 0 0 10px; font-size: 17px; font-weight: 700; }
+  .custom-path p { color: var(--text-soft); font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
+  .custom-cta {
+    display: inline-block;
+    background: var(--purple-soft);
+    color: #1e1b4b;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 28px;
+  }
+  .faq-item h4 { color: var(--text); margin: 0 0 10px; font-size: 16px; font-weight: 700; }
+  .faq-item p { color: var(--text-mute); font-size: 14px; line-height: 1.75; }
+  .faq-item strong { color: var(--text-soft); }
+
+  /* Final CTA */
+  .cta-block {
+    background: linear-gradient(135deg, var(--surface), #1c1917);
+    border: 1px solid var(--amber-border);
+    border-radius: 16px;
+    padding: 80px 52px;
+    text-align: center;
+  }
+  .cta-block h2 { font-size: 44px; line-height: 1.2; margin: 0 0 20px; font-weight: 700; }
+  .cta-block .sub { color: var(--text-soft); font-size: 18px; line-height: 1.65; margin: 0 auto 36px; max-width: 540px; }
+  .cta-actions { display: inline-flex; gap: 12px; align-items: center; }
+  .cta-block .btn-primary { padding: 16px 34px; font-size: 16px; }
+  .reminder-strip {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-mute);
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .reminder-strip strong { color: var(--amber); }
+
+  /* Footer */
+  footer {
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+  footer .brand-logo { justify-content: center; margin-bottom: 12px; font-size: 16px; }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .compare-grid, .icp-grid { grid-template-columns: 1fr; }
+    .hero-card { padding: 40px 28px; }
+    .hero-card h1 { font-size: 32px; }
+    .cta-block { padding: 60px 28px; }
+    .cta-block h2 { font-size: 32px; }
+    .sec-title { font-size: 24px; }
+    .nav-links { gap: 14px; font-size: 13px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="container inner">
+    <div class="brand-logo"><span class="brand-mark">C</span> Corey</div>
+    <div class="nav-links">
+      <a href="#how">איך זה עובד</a>
+      <a href="#pricing">תמחור</a>
+      <a href="#faq">FAQ</a>
+      <a href="#cta" class="nav-cta">התחל ניסיון</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-card">
+      <div class="tag-pill">⚡ סורסר דיגיטלי לתחום הטכנולוגי</div>
+      <h1>מנוע איתור יומי למשרות טכנולוגיות.</h1>
+      <p class="sub">קובעים תדירות, בוחרים את אופן הפנייה ומקבלים באופן שוטף פרופילים מתאימים לדרישות שהגדרתם, מוכנים להמשך תהליך העבודה שלכם.</p>
+      <div class="cta-row">
+        <a href="#pricing" class="btn-primary">מחיר ←</a>
+        <a href="#how" class="btn-ghost">איך זה עובד</a>
+      </div>
+      <div class="metrics">
+        <div class="metric">
+          <span class="metric-num">יומי / שבועי</span>
+          <span class="metric-label">תדירות לבחירתך</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num">×5</span>
+          <span class="metric-label">מהירות איתור</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num">∞</span>
+          <span class="metric-label">משרות במנוי</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="container">
+    <h2 class="sec-title">היום שלך, עכשיו ובעוד שבוע.</h2>
+    <div class="compare-grid">
+      <div class="compare-col before">
+        <h5>היום שלך עכשיו</h5>
+        <ul>
+          <li>4 שעות לינקדאין ביום</li>
+          <li>Boolean חוזר על עצמו</li>
+          <li>אותם 50 פרופילים</li>
+          <li>בכל פעם מתחילים מאפס</li>
+        </ul>
+      </div>
+      <div class="compare-col after">
+        <h5>היום שלך אחרי</h5>
+        <ul>
+          <li>30 דקות בבוקר על אקסל מוכן</li>
+          <li>פרופילים מאומתים בכל יום</li>
+          <li>אתה מתחיל את היום עם רשימה, לא עם חיפוש</li>
+          <li>הזמן שלך הולך על השיחות, לא על החיפוש</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <h2 class="sec-title">איך זה עובד</h2>
+
+    <div class="flow-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>טופס בעמוד אחד</h4>
+          <p>מייל + בריף מפורט: טייטל, ניסיון, מיקום, סטאק, חברות לא רלוונטיות, תדירות, מסלול. autosave לאורך הדרך, אפשר לחזור.</p>
+          <div class="icon-row"><span>🌐 Web Form</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>מייל אישור עם סיכום הבריף</h4>
+          <p>"קלטנו. הנה מה ביקשת. תוך 24 שעות יגיע הקובץ הראשון. שינויים? עני לאותו thread."</p>
+          <div class="icon-row"><span>📧 Email</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>כל יום (או שבוע): Excel למייל</h4>
+          <p>קובץ עם פרופילים מאומתים, עם לינקים.</p>
+          <div class="icon-row"><span>📧 Email</span><span>📊 Excel</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>שינויים? Reply לאותו thread</h4>
+          <p>"תוסיפו exclusion על Wix" / "תורידו את התדירות" / "תעצרו לזמן מה". תגובה תוך 24 שעות.</p>
+          <div class="icon-row"><span>📧 Email</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>בסוף השבוע: לינק להמשך</h4>
+          <p>מייל אוטומטי: "ממשיכים? בחר מסלול." לחיצה → [ספק תשלום] → המנוי פעיל. Pro? מחברים את ה-Gmail/Outlook.</p>
+          <div class="icon-row"><span>📧 Email</span><span>💳 [ספק תשלום]</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="market-callout">
+      <h4>⚡ Market Signal Layer · רץ ברקע</h4>
+      <p>המנוע סורק באופן שוטף פיטורים, סגירות, שינויים פנימיים, ראונדים בעייתיים. המידע הזה עוזר לסוכן האיתור לדעת איפה כדאי לחפש כרגע. התועלת שלך: פרופילים שמשתנים בעיתוי שבו הם פתוחים להזדמנות.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <h2 class="sec-title">תמחור</h2>
+    <p class="sec-lead">לחודש, פר משרה. כל משרה נוספת זולה יותר. אפשר להוסיף, להוריד, או להקפיא בכל זמן.</p>
+
+    <div class="price-table-wrap">
+      <table class="price-table">
+        <thead>
+          <tr><th>איזו משרה</th><th>מחיר חודשי פר משרה</th><th>חיסכון מול הראשונה</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>משרה 1</td><td class="price-cell">₪1,990</td><td>בסיס</td></tr>
+          <tr><td>משרות 2 עד 4</td><td class="price-cell">₪1,290</td><td>35%</td></tr>
+          <tr><td>משרה 5 והלאה</td><td class="price-cell">₪890</td><td>55%</td></tr>
+        </tbody>
+      </table>
+
+      <div class="examples-box">
+        <h5>דוגמאות חישוב (ללא פניות)</h5>
+        <ul>
+          <li>3 משרות: 1,990 + 1,290×2 = <strong>₪4,570/חודש</strong> (ממוצע ₪1,523)</li>
+          <li>5 משרות: 1,990 + 1,290×3 + 890×1 = <strong>₪6,750/חודש</strong> (ממוצע ₪1,350)</li>
+          <li>10 משרות: 1,990 + 1,290×3 + 890×6 = <strong>₪11,200/חודש</strong> (ממוצע ₪1,120)</li>
+        </ul>
+      </div>
+
+      <div class="examples-box">
+        <h5>אופציית פניות אוטומטיות (Pro add-on)</h5>
+        <ul>
+          <li>+₪800 פר משרה שמופעל בה אאוטריץ' אוטומטי</li>
+          <li>חיבור OAuth ל-Gmail או Outlook שלך</li>
+          <li>אפשר להפעיל על חלק מהמשרות בלבד</li>
+          <li>דוגמה: 5 משרות, פניות על 2 מהן = <strong>₪8,350/חודש</strong></li>
+        </ul>
+      </div>
+
+      <div class="trial-strip">
+        <div>🎁 <strong>שבוע ניסיון חינם</strong> · משרה אחת, אספקה יומית, ללא כרטיס אשראי.</div>
+        <div style="font-size:13px;color:#a7f3d0">בטל בקליק</div>
+      </div>
+
+      <div class="roi-box">
+        <strong>למה זה no-brainer:</strong> ₪1,990 לחודש = ₪66 ליום. חוסכים 4 עד 6 שעות יומיות של סורסינג. <strong>placement אחד נוסף בחודש = החזר פי 15+.</strong>
+      </div>
+    </div>
+
+    <div class="levers">
+      <h4>🎁 מנופי גמישות נוספים</h4>
+      <ul>
+        <li><strong>מנוי שנתי = 2 חודשים חינם</strong> (חיסכון 17%)</li>
+        <li><strong>הקפאת חשבון עד 30 יום</strong> בלי חיוב, לעונות שקטות</li>
+        <li><strong>"עצור משרה" בכל זמן</strong> וחזרה אחורה בעלות אוטומטית</li>
+        <li><strong>Referral bonus:</strong> הביא חבר, מקבל חודש חינם</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="icp">
+  <div class="container">
+    <h2 class="sec-title">למי זה מתאים. ולמי לא.</h2>
+    <p class="sec-lead">המוצר בנוי לסוג ספציפי של עבודת גיוס. אם זה אתה, זה יחסוך לך שעות. אם זה לא, נכוון אותך לפתרון אחר.</p>
+
+    <div class="icp-grid">
+      <div class="icp-col fit">
+        <h3>מתאים לך אם:</h3>
+        <ul>
+          <li>פרילנסר/ית בגיוס טכנולוגי</li>
+          <li>סוכנות בוטיק (2-5 רקרוטרים)</li>
+          <li>מנהל/ת 1-10 משרות פעילות</li>
+          <li>מבזבז יותר מ-2 שעות סורסינג ביום</li>
+          <li>רוצה להתפנות לשיחות, לא ל-Boolean</li>
+        </ul>
+      </div>
+      <div class="icp-col no-fit">
+        <h3>לא מתאים לך אם:</h3>
+        <ul>
+          <li>חברה גדולה עם 50+ משרות פתוחות בו זמנית</li>
+          <li>צריך לאייש 30 ג'וניורים בכמות</li>
+          <li>חברה גלובלית, סורסינג ב-15 מדינות</li>
+          <li>מחפש replacement לרקרוטר אצלך, לא משלים</li>
+          <li>רוצה מי שגם יראיין, יסנן, ויצור קשר אישי</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="scope-block">
+      <h3>אילו משרות אנחנו תומכים</h3>
+      <p>המנוע מתאים למשרות עם נפח איתור גבוה, שניתן לזהות במדויק לפי קריטריונים מובנים.</p>
+      <div class="role-grid">
+        <span class="role-pill">Backend</span>
+        <span class="role-pill">Frontend</span>
+        <span class="role-pill">Fullstack</span>
+        <span class="role-pill">DevOps</span>
+        <span class="role-pill">Product (PM)</span>
+      </div>
+      <div class="seniority">
+        <strong>סניוריות:</strong> Junior to Senior. (Staff, Principal, Architect, VP יבדקו פרטנית.)
+      </div>
+    </div>
+
+    <div class="custom-path">
+      <h4>משרה אחרת? בודקים יחד.</h4>
+      <p>תפקידי ML, Data Science, Security Research, QA, Design, או משרות שדורשות חיפוש מעבר ל-LinkedIn. נבדוק את הספציפיקציה ונחזיר לך תכנית מותאמת. ייתכן שנוכל, ייתכן שלא. בכל מקרה תקבל תשובה ישרה.</p>
+      <a href="#" class="custom-cta">שלח דרישה לבדיקה</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <h2 class="sec-title">שאלות שעולות</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <h4>כמה זה עולה למספר משרות?</h4>
+        <p>משרה ראשונה ₪1,990 לחודש. שנייה עד רביעית ₪1,290 כל אחת. חמישית והלאה ₪890 כל אחת. כך 5 משרות = ₪6,750, 10 משרות = ₪11,200. אופציית פניה אוטומטית מוסיפה ₪800 פר משרה שמופעלת בה.</p>
+      </div>
+      <div class="faq-item">
+        <h4>מה כולל הניסיון החינם?</h4>
+        <p>שבוע, משרה אחת, אספקה יומית, ללא פניות אוטומטיות. ללא כרטיס אשראי. בסוף השבוע מקבלים לינק לבחור מסלול או לא להמשיך.</p>
+      </div>
+      <div class="faq-item">
+        <h4>איך מבטלים? יש התחייבות?</h4>
+        <p>אין התחייבות. אפשר לבטל בכל זמן בקליק במייל. גם להקפיא חשבון עד 30 יום בלי חיוב, ולחדש.</p>
+      </div>
+      <div class="faq-item">
+        <h4>איך אני יודעת שהפרופילים מתאימים?</h4>
+        <p>כל פרופיל באקסל היומי נבדק שהוא עומד בקריטריונים שהגדרת בבריף. אם משהו נראה לא מתאים, את עונה לאותו thread במייל ואנחנו מעדכנים את הקריטריונים תוך 24 שעות.</p>
+      </div>
+      <div class="faq-item">
+        <h4>איך עובדת אפשרות הפניה האוטומטית (Pro)?</h4>
+        <p>מחברים את ה-Gmail או Outlook שלך דרך OAuth. כותבים תבנית פניה פעם אחת, ואת מאשרת אותה. הסוכן שולח את הפניה מהמייל שלך לפרופילים שמופיעים באקסל. תגובות חוזרות ישירות אלייך.</p>
+      </div>
+      <div class="faq-item">
+        <h4>אילו משרות אתם תומכים?</h4>
+        <p>Backend, Frontend, Fullstack, DevOps, Product (PM). סניוריות Junior to Senior. תפקידים אחרים יבדקו פרטנית ונחזיר תכנית מותאמת.</p>
+      </div>
+      <div class="faq-item">
+        <h4>מה קורה אם לא הצלחתי לאייש את המשרה?</h4>
+        <p>זו לא הבטחת איוש. אנחנו מספקים אספקת פרופילים תואמים. ההתאמה הסופית, הראיון, וההחלטה הם שלך. אם אחרי תקופה את לא מרוצה, מבטלים בקליק.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container">
+    <div class="cta-block">
+      <h2>שבוע בלי חיפושים, אבל יותר פניות.</h2>
+      <p class="sub">שבוע ניסיון חינם על משרה אחת. ללא כרטיס אשראי. ללא התחייבות. אם זה לא יחסוך לך שעות, פשוט אל תמשיך.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn-primary">התחל ניסיון חינם ←</a>
+        <a href="#pricing" class="btn-ghost">ראה תמחור</a>
+      </div>
+      <div class="reminder-strip">
+        <span>🎁 <strong>שבוע</strong> חינם</span>
+        <span>💳 ללא כרטיס</span>
+        <span>📧 הכל במייל</span>
+        <span>🛑 בטל בקליק</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="brand-logo"><span class="brand-mark">C</span> Corey</div>
+    <div>Corey by AddedValue · 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
