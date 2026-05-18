@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Project Is
 
-This folder holds the **design package** for **Corey**, a B2B SaaS-style product by AddedValue. Corey is a sourcing-as-a-service tool for freelance tech recruiters: customer fills a brief, gets a daily/weekly Excel of matching profiles to their email. Optional outreach add-on (Pro tier) sends emails from the customer's own inbox via OAuth.
+This folder holds the **design package** for **Corey**, a B2B SaaS-style product by AddedValue. Corey is a sourcing-as-a-service tool for freelance tech recruiters: customer fills a brief, gets a daily/weekly Excel of matching profiles to their email.
 
 This is **not yet a codebase**. There is no build, no tests, no implementation. The MVP build comes next. Anything Claude is asked to do here is either (a) refine the design, (b) start the implementation, or (c) generate adjacent artifacts (copy, email templates, onboarding, etc.).
 
@@ -20,7 +20,7 @@ This is **not yet a codebase**. There is no build, no tests, no implementation. 
 - **Brand color:** amber `#fbbf24`. Dark slate backgrounds (`#0f172a`, `#1e293b`).
 - **Language:** Hebrew first. English version comes after Israeli-market validation.
 - **Channels:** form on site + email only. No dashboard, no WhatsApp, no app.
-- **Pricing model:** decreasing per-role tariff. ₪990 first role, ₪690 roles 2-4, ₪490 role 5+. Outreach add-on +₪400/role. 7-day free trial, 1 role, no credit card.
+- **Pricing model:** decreasing per-role tariff. ₪990 first role, ₪690 roles 2-4, ₪490 role 5+. Outreach add-on deferred (not in MVP). 7-day free trial, 1 role, no credit card.
 - **Audience:** solo freelance recruiters and boutique agencies (2-5 recruiters) in Israeli tech. Not enterprise, not bulk hiring, not global.
 - **Supported roles:** Backend, Frontend, Fullstack, DevOps, Product. Junior to Senior. Anything else routes to a custom-plan path.
 - **AddedValue stays separate.** Corey is a new product, not a rebrand. AddedValue continues with its founder/CTO clients independently.
